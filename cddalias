@@ -1,0 +1,7 @@
+#alias cdd='cd  `cdd_dirs !*`'
+
+#alias cddd='source /tmp/${USER}tmpdir'
+
+alias cdd='source <BIN>/cddd $1'
+
+

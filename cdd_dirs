@@ -1,0 +1,78 @@
+#!/usr/bin/perl 
+####################################################################### 
+# 
+# Dirs
+# 
+# This program will scan the ~/.dirs file for a matching 
+# directory.
+# 
+#       Copyright (C) VESystems ITS, LLC., 2005. 
+#       All Rights Reserved. 
+#       This Module contains Proprietary Information of 
+#       VESystems ITS, LLC., and should be treated 
+#       as Confidential. 
+# 
+####################################################################### 
+BEGIN 
+{ 
+$ddir = "<MOD>";  # deployment directory 
+push(@INC,$ddir); 
+} 
+
+#use Counters;
+#use Time::Local; 
+#use Time::localtime; 
+
+sub initialize_globals 
+{ 
+($dpat) = @ARGV;
+
+$log_cat = "cdd";
+
+#$cnt = new Counters($log_cat);
+#$run_id  = $cnt->get_counter();
+} 
+
+sub get_dir
+{
+    my $dpat = @_[0];
+    my @dirs = ();
+    my $retval = ".";
+
+
+if ($dpat ne "")
+    {
+    @dirs = `grep $dpat ~/.dirs`;
+    chomp(@dirs);
+    }
+
+if ($#dirs >= 0)
+    {
+    $retval = $dirs[0];
+    }
+
+return $retval;
+}
+
+
+
+####################################################################### 
+# 
+# Main 
+# 
+####################################################################### 
+
+    my $tmpfile = "/tmp/$ENV{USER}tmpdir";
+
+
+initialize_globals(); 
+
+unlink($tmpfile);
+$dir = get_dir($dpat);
+#log($log_cat, "dpat $dpat path $dir");
+
+print "$dir\n";
+
+#log_status($log_cat, "$run_id $dir");
+
+

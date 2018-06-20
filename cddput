@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+#######################################################################
+#
+#
+#       Copyright (C) VESystems ITS, LLC., 2006.
+#       All Rights Reserved.
+#       This Module contains Proprietary Information of
+#       VESystems ITS, LLC., and should be treated
+#       as Confidential.
+#
+#######################################################################
+BEGIN
+{
+$ddir = "<MOD>";  # deployment directory
+push(@INC,$ddir);
+}
+
+
+sub initialize_globals
+{
+$dirs_file = "<DIRS>";
+$cwd = `pwd`;
+chomp($cwd);
+}
+
+sub log_msg
+{
+    my $logfile = $_[0];
+    my $msg     = $_[1];
+
+open(FDESC, ">> $logfile") || die "unable to open $logfile\n";
+print FDESC "$msg\n";
+close(FDESC);
+}
+
+sub add_cwd_to_dirs
+{
+    my @dirs = ();
+    my $ind;
+
+if (-e $dirs_file)
+    {
+    @dirs = `cat $dirs_file | grep -v "$cwd"`;
+    chomp(@dirs);
+    unlink($dirs_file);
+    }
+
+push(@dirs, $cwd);
+
+foreach $ind (@dirs)
+    {
+    log_msg($dirs_file, $ind);
+    }
+}
+
+
+
+#######################################################################
+#
+# Main
+#
+#######################################################################
+initialize_globals();
+add_cwd_to_dirs();
