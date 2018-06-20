@@ -1,18 +1,5 @@
 #!/usr/bin/perl 
-####################################################################### 
-# 
-# Dirs
-# 
-# This program will scan the ~/.dirs file for a matching 
-# directory.
-# 
-#       Copyright (C) VESystems ITS, LLC., 2005. 
-#       All Rights Reserved. 
-#       This Module contains Proprietary Information of 
-#       VESystems ITS, LLC., and should be treated 
-#       as Confidential. 
-# 
-####################################################################### 
+#HEADER
 BEGIN 
 { 
 $ddir = "<MOD>";  # deployment directory 
